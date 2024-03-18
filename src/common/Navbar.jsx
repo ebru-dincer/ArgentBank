@@ -11,7 +11,7 @@ import { NavLink } from "react-router-dom";
 function NavBar() {
     return (
     <nav class="main-nav">
-        <NavLink class="main-nav-logo" to="./index.html">
+        <NavLink class="main-nav-logo" to="/">
           <img
             class="main-nav-logo-image"
             src={logo}
@@ -20,7 +20,7 @@ function NavBar() {
           <h1 class="sr-only">Argent Bank</h1>
         </NavLink>
         <div>
-          <NavLink class="main-nav-item" href="./sign-in.html">
+          <NavLink class="main-nav-item" to="/signin">
             <i class="fa fa-user-circle"></i>
             <FontAwesomeIcon icon={faCircleUser} />
             Sign In
