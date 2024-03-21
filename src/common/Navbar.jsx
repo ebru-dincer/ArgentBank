@@ -32,6 +32,7 @@ function NavBar() {
         <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
       <div>
+        <p>{user}</p>
         <FontAwesomeIcon icon={faCircleUser} />
         {user ? (
           <NavLink className="main-nav-item" to="/" onClick={() => handleLogOut()}>

@@ -8,8 +8,8 @@ import { logIn } from "../api/api.js";
 import { userProfile } from "../api/api.js";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { userSlice } from '../features/userSlice.js';
-import { login, logout} from '../features/userSlice.js'
+import { login } from '../features/userSlice.js'
+import { useState } from "react";
 
 
 /**
@@ -19,19 +19,13 @@ import { login, logout} from '../features/userSlice.js'
 function SignIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   async function submitLogIn(e) {
     e.preventDefault();
+    const response = await logIn(username, password);
 
-    const email = document.getElementById("username");
-    const password = document.getElementById("password");
-
-    const emailValue = email.value;
-    const passwordValue = password.value;
-    console.log(emailValue);
-    console.log(passwordValue);
-
-    const response = await logIn(emailValue, passwordValue);
 
     console.log("token is", response.body.token);
     if (response.body.token) {
@@ -60,11 +54,21 @@ function SignIn() {
           <form>
             <div className="input-wrapper">
               <label htmlFor="username">Username</label>
-              <input type="text" id="username" />
+              <input 
+                type="text" 
+                id="username" 
+                value={username} 
+                onChange={(e) => setUsername(e.target.value)} 
+              />
             </div>
             <div className="input-wrapper">
               <label htmlFor="password">Password</label>
-              <input type="password" id="password" />
+              <input 
+                type="password" 
+                id="password" 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
             <div className="input-remember">
               <input type="checkbox" id="remember-me" />

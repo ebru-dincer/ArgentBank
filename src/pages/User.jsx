@@ -1,26 +1,44 @@
 import "../app/App.css";
 import NavBar from "../common/Navbar";
 import Footer from "../common/Footer";
-
-// Navbar à modifier
-
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/userSlice";
+import Edit from "../components/Edit";
+import { useState } from "react";
 
 /**
- * 
+ *
  * @returns {jsx} <User />
  */
 function User() {
+  const user = useSelector(selectUser);
+  const [openEdit, setOpenEdit] = useState(false);
+
+  const handleEdit = () => {
+    setOpenEdit(true);
+  };
+
   return (
     <>
       <NavBar />
       <main className="main bg-dark">
         <div className="header">
-          <h1>
-            Welcome back
-            <br />
-            Tony Jarvis!
-          </h1>
-          <button className="edit-button">Edit Name</button>
+          {!openEdit ? (
+            <>
+              <h1>
+                Welcome back
+                <br />
+                {user}
+              </h1>
+              <button className="edit-button" onClick={() => handleEdit()}>
+                Edit Name
+              </button>
+            </>
+          ) : (
+            <Edit open={openEdit} />
+          )}
+
+          {/* <button className="edit-button" onClick={() => handleEdit()}>Edit Name</button> */}
         </div>
         <h2 className="sr-only">Accounts</h2>
         <section className="account">
