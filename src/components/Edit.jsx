@@ -1,17 +1,35 @@
-import { useSelector } from "react-redux";
-import { selectUser } from "../features/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserName, selectUser} from "../features/userSlice";
+import { updateUser, userProfile } from "../api/api";
+import { useState } from "react";
 
 /**
  *
  * @returns {jsx} <Edit />
  */
-function Edit(props) {
-  const username = useSelector(selectUser);
-  const { open } = props;
+function Edit({ openEdit, handleEdit }) {
+  const userInfo = useSelector(selectUser);
+  const [userNameInput, setUsernameInput] = useState("");
+  const dispatch = useDispatch();
+  // const { openEdit } = props;
+
+  const userName = userInfo.user.userName
+
+  const handleSave = (e) => {
+    e.preventDefault();
+    console.log("clic sur bouton save");
+    handleEdit();
+
+    dispatch(setUserName(userNameInput));
+    console.log("Username Input is", userNameInput)
+
+    const apiResp = updateUser(userNameInput)
+
+  }
 
   return (
     <>
-      {open && (
+      {openEdit && (
         <>
           <h2>Edit user info</h2>
           <form>
@@ -20,8 +38,9 @@ function Edit(props) {
               <input
                 type="text"
                 id="username"
-                value={username}
-                // onChange={}
+                // value={user}
+                placeholder={userName}
+                onChange={(e) => setUsernameInput(e.target.value)}
               />
             </div>
             <div className="edit-input-wrapper">
@@ -29,7 +48,7 @@ function Edit(props) {
               <input
                 type="text"
                 id="firstname"
-                // value={firstname}
+                value={userInfo.user.firstName}
                 disabled={true}
               />
             </div>
@@ -38,20 +57,20 @@ function Edit(props) {
               <input
                 type="text"
                 id="lastname"
-                // value={firstname}
+                value={userInfo.user.lastName}
                 disabled={true}
               />
             </div>
             <div className="edit-buttons">
               <button
                 className="edit-button"
-                //   onClick={}
+                  onClick={(e) => handleSave(e)}
               >
                 Save
               </button>
               <button
                 className="edit-button"
-                // onClick={}
+                onClick={() => handleEdit()}
               >
                 Cancel
               </button>

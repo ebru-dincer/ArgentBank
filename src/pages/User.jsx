@@ -11,12 +11,14 @@ import { useState } from "react";
  * @returns {jsx} <User />
  */
 function User() {
-  const user = useSelector(selectUser);
+  const userInfo = useSelector(selectUser);
   const [openEdit, setOpenEdit] = useState(false);
 
+  console.log("user is", userInfo)
   const handleEdit = () => {
-    setOpenEdit(true);
+    setOpenEdit(!openEdit);
   };
+
 
   return (
     <>
@@ -24,21 +26,20 @@ function User() {
       <main className="main bg-dark">
         <div className="header">
           {!openEdit ? (
-            <>
+            <div>
               <h1>
                 Welcome back
                 <br />
-                {user}
+                {userInfo.user.firstName} {userInfo.user.lastName} !
               </h1>
               <button className="edit-button" onClick={() => handleEdit()}>
                 Edit Name
               </button>
-            </>
+            </div>
           ) : (
-            <Edit open={openEdit} />
+            // <p>test</p>
+            <Edit openEdit={openEdit} handleEdit={handleEdit} />
           )}
-
-          {/* <button className="edit-button" onClick={() => handleEdit()}>Edit Name</button> */}
         </div>
         <h2 className="sr-only">Accounts</h2>
         <section className="account">

@@ -3,8 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUser } from "../features/userSlice";
-import { logout} from '../features/userSlice.js'
+import { selectAuth } from "../features/authSlice.js";
+import { logout} from '../features/authSlice.js'
+import { selectUser } from "../features/userSlice.js"
 
 
 /**
@@ -12,14 +13,19 @@ import { logout} from '../features/userSlice.js'
  * @returns {jsx} <NavBar />
  */
 function NavBar() {
-  const user = useSelector(selectUser);
+  const userInfo = useSelector(selectUser);
   const dispatch = useDispatch();
+
+  const { isAuthenticated } = useSelector(selectAuth)
+
 
   const handleLogOut = () => {
     console.log("logout");
     dispatch(logout());
     localStorage.clear();
   }
+
+  // const userName = userInfo.user.userName
 
   return (
     <nav className="main-nav">
@@ -32,9 +38,9 @@ function NavBar() {
         <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
       <div>
-        <p>{user}</p>
+        {/* <p>{userName}</p> */}
         <FontAwesomeIcon icon={faCircleUser} />
-        {user ? (
+        {isAuthenticated ? (
           <NavLink className="main-nav-item" to="/" onClick={() => handleLogOut()}>
             Sign Out
           </NavLink>

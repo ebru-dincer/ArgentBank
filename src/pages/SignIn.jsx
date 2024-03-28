@@ -8,7 +8,8 @@ import { logIn } from "../api/api.js";
 import { userProfile } from "../api/api.js";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { login } from '../features/userSlice.js'
+import { login } from '../features/authSlice.js'
+import { user } from "../features/userSlice.js"
 import { useState } from "react";
 
 
@@ -21,19 +22,32 @@ function SignIn() {
   const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   async function submitLogIn(e) {
     e.preventDefault();
+
+    if ((username.trim() === "") || (password.trim() === "") ) {
+      setError("Please complete all fields.");
+      return false
+    } else {
+      setError("");
+    }
+
     const response = await logIn(username, password);
-
-
     console.log("token is", response.body.token);
+
     if (response.body.token) {
       localStorage.setItem("token", response.body.token);
 
-      const user = await userProfile();
-      console.log(user.body.userName)
-      dispatch(login(user.body.userName))
+      const userResp = await userProfile();
+      // console.log(userInfo)
+      // dispatch(login(user.body.userName))
+      // dispatch(login(user.body))
+      dispatch(login())
+      dispatch(user(userResp.body))
+      console.log(userResp.body)
+      
 
       navigate("/user");
       return <User />;
@@ -74,6 +88,7 @@ function SignIn() {
               <input type="checkbox" id="remember-me" />
               <label htmlFor="remember-me">Remember me</label>
             </div>
+            {error && <p>{error}</p>}
             <button
               className="sign-in-button"
               onClick={(e) => submitLogIn(e)}

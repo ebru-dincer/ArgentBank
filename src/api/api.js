@@ -40,7 +40,6 @@ export async function userProfile () {
     const response = await fetch(apiUrl + "/user/profile", {
                     method: "POST",
                     headers: {"Authorization": `Bearer ${token}`},
-                    // body: formData,
                   });
     
     const userRequest = await response.json();
@@ -51,3 +50,30 @@ export async function userProfile () {
     console.error("Erreur :", erreur);
   }
   }
+
+
+// Modification profil utilisateur
+/**
+ * 
+ * @param {Object}  
+ * @returns {Object}
+ */
+export async function updateUser (userName) {
+
+  let token = localStorage.getItem("token");
+
+  try {
+  const response = await fetch(apiUrl + "/user/profile", {
+                  method: "PUT",
+                  headers: {"Authorization": `Bearer ${token}`},
+                  body:  JSON.stringify({"userName": userName})
+                });
+  console.log("userName is", userName)
+  const updateRequest = await response.json();
+  console.log(updateRequest)
+  return updateRequest;
+  
+} catch (erreur) {
+  console.error("Erreur :", erreur);
+}
+}  
