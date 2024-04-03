@@ -61,12 +61,12 @@ export async function userProfile () {
 export async function updateUser (userName) {
 
   let token = localStorage.getItem("token");
-
+  
   try {
   const response = await fetch(apiUrl + "/user/profile", {
                   method: "PUT",
-                  headers: {"Authorization": `Bearer ${token}`},
-                  body:  JSON.stringify({"userName": userName})
+                  headers: {"Authorization": `Bearer ${token}`, "Content-Type": "application/json"},
+                  body:  JSON.stringify({"userName" : userName})
                 });
   console.log("userName is", userName)
   const updateRequest = await response.json();

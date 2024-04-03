@@ -30,14 +30,13 @@ function User() {
               <h1>
                 Welcome back
                 <br />
-                {userInfo.user.firstName} {userInfo.user.lastName} !
+                {userInfo.firstName} {userInfo.lastName} !
               </h1>
               <button className="edit-button" onClick={() => handleEdit()}>
                 Edit Name
               </button>
             </div>
           ) : (
-            // <p>test</p>
             <Edit openEdit={openEdit} handleEdit={handleEdit} />
           )}
         </div>

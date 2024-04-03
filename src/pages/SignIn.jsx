@@ -9,7 +9,7 @@ import { userProfile } from "../api/api.js";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from '../features/authSlice.js'
-import { user } from "../features/userSlice.js"
+import { setFirstName, setUserName, setLastName } from "../features/userSlice.js"
 import { useState } from "react";
 
 
@@ -20,8 +20,8 @@ import { useState } from "react";
 function SignIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setFormUsername] = useState("");
+  const [password, setFormPassword] = useState("");
   const [error, setError] = useState("");
 
   async function submitLogIn(e) {
@@ -35,25 +35,21 @@ function SignIn() {
     }
 
     const response = await logIn(username, password);
-    console.log("token is", response.body.token);
 
-    if (response.body.token) {
+    if (response.status === 200) {
       localStorage.setItem("token", response.body.token);
 
       const userResp = await userProfile();
-      // console.log(userInfo)
-      // dispatch(login(user.body.userName))
-      // dispatch(login(user.body))
       dispatch(login())
-      dispatch(user(userResp.body))
-      console.log(userResp.body)
-      
+      dispatch(setUserName(userResp.body.userName))
+      dispatch(setFirstName(userResp.body.firstName))
+      dispatch(setLastName(userResp.body.lastName))     
 
       navigate("/user");
       return <User />;
       
-    } else {
-      console.error("token non trouvé");
+    } else if (response.status !== 200) {
+      setError("Identifiant ou mot de passe incorrect.");
     }
   }
 
@@ -72,7 +68,7 @@ function SignIn() {
                 type="text" 
                 id="username" 
                 value={username} 
-                onChange={(e) => setUsername(e.target.value)} 
+                onChange={(e) => setFormUsername(e.target.value)} 
               />
             </div>
             <div className="input-wrapper">
@@ -81,7 +77,7 @@ function SignIn() {
                 type="password" 
                 id="password" 
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setFormPassword(e.target.value)}
               />
             </div>
             <div className="input-remember">

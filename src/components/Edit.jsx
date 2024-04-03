@@ -11,19 +11,23 @@ function Edit({ openEdit, handleEdit }) {
   const userInfo = useSelector(selectUser);
   const [userNameInput, setUsernameInput] = useState("");
   const dispatch = useDispatch();
-  // const { openEdit } = props;
 
-  const userName = userInfo.user.userName
-
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
-    console.log("clic sur bouton save");
     handleEdit();
 
-    dispatch(setUserName(userNameInput));
+    
     console.log("Username Input is", userNameInput)
 
-    const apiResp = updateUser(userNameInput)
+
+    try {
+      const apiResp = await updateUser(userNameInput);
+      dispatch(setUserName(userNameInput));
+      
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour de l'utilisateur:", error);
+      
+    }
 
   }
 
@@ -39,7 +43,7 @@ function Edit({ openEdit, handleEdit }) {
                 type="text"
                 id="username"
                 // value={user}
-                placeholder={userName}
+                placeholder={userInfo.userName}
                 onChange={(e) => setUsernameInput(e.target.value)}
               />
             </div>
@@ -48,7 +52,7 @@ function Edit({ openEdit, handleEdit }) {
               <input
                 type="text"
                 id="firstname"
-                value={userInfo.user.firstName}
+                value={userInfo.firstName}
                 disabled={true}
               />
             </div>
@@ -57,7 +61,7 @@ function Edit({ openEdit, handleEdit }) {
               <input
                 type="text"
                 id="lastname"
-                value={userInfo.user.lastName}
+                value={userInfo.lastName}
                 disabled={true}
               />
             </div>

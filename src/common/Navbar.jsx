@@ -14,10 +14,8 @@ import { selectUser } from "../features/userSlice.js"
  */
 function NavBar() {
   const userInfo = useSelector(selectUser);
+  const { isAuthenticated } = useSelector(selectAuth);
   const dispatch = useDispatch();
-
-  const { isAuthenticated } = useSelector(selectAuth)
-
 
   const handleLogOut = () => {
     console.log("logout");
@@ -25,7 +23,6 @@ function NavBar() {
     localStorage.clear();
   }
 
-  // const userName = userInfo.user.userName
 
   return (
     <nav className="main-nav">
@@ -38,7 +35,11 @@ function NavBar() {
         <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
       <div>
-        {/* <p>{userName}</p> */}
+        {isAuthenticated ? (
+          <p>{userInfo.userName}</p> 
+        ) : (
+          null
+        )} 
         <FontAwesomeIcon icon={faCircleUser} />
         {isAuthenticated ? (
           <NavLink className="main-nav-item" to="/" onClick={() => handleLogOut()}>
@@ -49,9 +50,6 @@ function NavBar() {
             Sign In
           </NavLink>
         )}
-        {/* <NavLink className="main-nav-item" to="/signin">
-            Sign In
-          </NavLink> */}
       </div>
     </nav>
   );
