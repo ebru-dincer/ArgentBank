@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setUserName, selectUser} from "../features/userSlice";
+import { setUserName, selectUser } from "../features/userSlice";
 import { updateUser, userProfile } from "../api/api";
 import { useState } from "react";
 
 /**
- *
+ * This component renders the Edit section.
+ * @param {boolean} openEdit 
+ * @param {function} handleEdit 
  * @returns {jsx} <Edit />
  */
 function Edit({ openEdit, handleEdit }) {
@@ -16,20 +18,13 @@ function Edit({ openEdit, handleEdit }) {
     e.preventDefault();
     handleEdit();
 
-    
-    console.log("Username Input is", userNameInput)
-
-
     try {
       const apiResp = await updateUser(userNameInput);
       dispatch(setUserName(userNameInput));
-      
     } catch (error) {
       console.error("Erreur lors de la mise à jour de l'utilisateur:", error);
-      
     }
-
-  }
+  };
 
   return (
     <>
@@ -66,16 +61,10 @@ function Edit({ openEdit, handleEdit }) {
               />
             </div>
             <div className="edit-buttons">
-              <button
-                className="edit-button"
-                  onClick={(e) => handleSave(e)}
-              >
+              <button className="edit-button" onClick={(e) => handleSave(e)}>
                 Save
               </button>
-              <button
-                className="edit-button"
-                onClick={() => handleEdit()}
-              >
+              <button className="edit-button" onClick={() => handleEdit()}>
                 Cancel
               </button>
             </div>

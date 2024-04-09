@@ -1,14 +1,13 @@
-
 /**
- * 
+ * This component renders the footer.
  * @returns {jsx} <Footer />
  */
 function Footer() {
-    return (     
-        <footer className="footer">
-            <p className="footer-text">Copyright 2020 Argent Bank</p>
-        </footer>
-    )
+  return (
+    <footer className="footer">
+      <p className="footer-text">Copyright 2020 Argent Bank</p>
+    </footer>
+  );
 }
 
-export default Footer
+export default Footer;

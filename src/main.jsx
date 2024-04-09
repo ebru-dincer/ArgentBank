@@ -1,16 +1,14 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './app/App.jsx'
-import SignIn from './pages/SignIn.jsx'
-import User from './pages/User.jsx'
-import './index.css'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./app/App.jsx";
+import SignIn from "./pages/SignIn.jsx";
+import User from "./pages/User.jsx";
+import "./index.css";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 // REDUX
-import { Provider } from 'react-redux'
-import { store } from './app/store.js'
-
+import { Provider } from "react-redux";
+import { store } from "./app/store.js";
 
 const router = createBrowserRouter([
   {
@@ -24,14 +22,11 @@ const router = createBrowserRouter([
   {
     path: "/user",
     element: <User />,
-  }
-])
+  },
+]);
 
-
-ReactDOM.createRoot(document.getElementById('root')).render(
-  // <React.StrictMode>
+ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <RouterProvider router={router} />
-  </Provider>,
-  // </React.StrictMode>,
-)
+  </Provider>
+);

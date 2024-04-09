@@ -8,13 +8,16 @@ import { logIn } from "../api/api.js";
 import { userProfile } from "../api/api.js";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { login } from '../features/authSlice.js'
-import { setFirstName, setUserName, setLastName } from "../features/userSlice.js"
+import { login } from "../features/authSlice.js";
+import {
+  setFirstName,
+  setUserName,
+  setLastName,
+} from "../features/userSlice.js";
 import { useState } from "react";
 
-
 /**
- *
+ * This component renders the Sign in page.
  * @returns {jsx} <SignIn />
  */
 function SignIn() {
@@ -27,9 +30,9 @@ function SignIn() {
   async function submitLogIn(e) {
     e.preventDefault();
 
-    if ((username.trim() === "") || (password.trim() === "") ) {
+    if (username.trim() === "" || password.trim() === "") {
       setError("Please complete all fields.");
-      return false
+      return false;
     } else {
       setError("");
     }
@@ -40,19 +43,17 @@ function SignIn() {
       localStorage.setItem("token", response.body.token);
 
       const userResp = await userProfile();
-      dispatch(login())
-      dispatch(setUserName(userResp.body.userName))
-      dispatch(setFirstName(userResp.body.firstName))
-      dispatch(setLastName(userResp.body.lastName))     
+      dispatch(login());
+      dispatch(setUserName(userResp.body.userName));
+      dispatch(setFirstName(userResp.body.firstName));
+      dispatch(setLastName(userResp.body.lastName));
 
       navigate("/user");
       return <User />;
-      
     } else if (response.status !== 200) {
-      setError("Identifiant ou mot de passe incorrect.");
+      setError("Incorrect username or password.");
     }
   }
-
 
   return (
     <>
@@ -64,18 +65,18 @@ function SignIn() {
           <form>
             <div className="input-wrapper">
               <label htmlFor="username">Username</label>
-              <input 
-                type="text" 
-                id="username" 
-                value={username} 
-                onChange={(e) => setFormUsername(e.target.value)} 
+              <input
+                type="text"
+                id="username"
+                value={username}
+                onChange={(e) => setFormUsername(e.target.value)}
               />
             </div>
             <div className="input-wrapper">
               <label htmlFor="password">Password</label>
-              <input 
-                type="password" 
-                id="password" 
+              <input
+                type="password"
+                id="password"
                 value={password}
                 onChange={(e) => setFormPassword(e.target.value)}
               />
@@ -85,10 +86,7 @@ function SignIn() {
               <label htmlFor="remember-me">Remember me</label>
             </div>
             {error && <p>{error}</p>}
-            <button
-              className="sign-in-button"
-              onClick={(e) => submitLogIn(e)}
-            >
+            <button className="sign-in-button" onClick={(e) => submitLogIn(e)}>
               Sign In
             </button>
           </form>

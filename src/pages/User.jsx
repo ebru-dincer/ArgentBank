@@ -7,18 +7,16 @@ import Edit from "../components/Edit";
 import { useState } from "react";
 
 /**
- *
+ * This component renders the user's homepage.
  * @returns {jsx} <User />
  */
 function User() {
   const userInfo = useSelector(selectUser);
   const [openEdit, setOpenEdit] = useState(false);
 
-  console.log("user is", userInfo)
   const handleEdit = () => {
     setOpenEdit(!openEdit);
   };
-
 
   return (
     <>
