@@ -1,6 +1,6 @@
-import icon_chat from "../assets/icon-chat.png";
-import icon_money from "../assets/icon-money.png";
-import icon_security from "../assets/icon-security.png";
+import icon_chat from "../assets/icon-chat.webp";
+import icon_money from "../assets/icon-money.webp";
+import icon_security from "../assets/icon-security.webp";
 
 /**
  * This component renders the Features section.

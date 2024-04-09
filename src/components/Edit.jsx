@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setUserName, selectUser } from "../features/userSlice";
-import { updateUser, userProfile } from "../api/api";
+import { updateUser } from "../api/api";
 import { useState } from "react";
 
 /**
