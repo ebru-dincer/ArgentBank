@@ -24,27 +24,27 @@ function NavBar() {
 
   return (
     <nav className="main-nav">
-      <NavLink className="main-nav-logo" to="/">
+      <NavLink className="main-nav__logo" to="/">
         <img
-          className="main-nav-logo-image"
+          className="main-nav__logo--image"
           src={logo}
           alt="Argent Bank Logo"
         />
         <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
-      <div>
-        {isAuthenticated ? <p>{userInfo.userName}</p> : null}
+      <div className="main-nav__container">
+        {isAuthenticated ? <p className="main-nav__container--username">{userInfo.userName}</p> : null}
         <FontAwesomeIcon icon={faCircleUser} />
         {isAuthenticated ? (
           <NavLink
-            className="main-nav-item"
+            className="main-nav__item"
             to="/"
             onClick={() => handleLogOut()}
           >
             Sign Out
           </NavLink>
         ) : (
-          <NavLink className="main-nav-item" to="/signin">
+          <NavLink className="main-nav__item" to="/signin">
             Sign In
           </NavLink>
         )}

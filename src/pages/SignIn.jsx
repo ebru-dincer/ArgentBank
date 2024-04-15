@@ -59,11 +59,11 @@ function SignIn() {
     <>
       <NavBar />
       <main className="main bg-dark">
-        <section className="sign-in-content">
-          <FontAwesomeIcon icon={faCircleUser} />
+        <section className="sign-in">
+          <FontAwesomeIcon icon={faCircleUser} className="sign-in__logo"/>
           <h1>Sign In</h1>
           <form>
-            <div className="input-wrapper">
+            <div className="sign-in__input-wrapper">
               <label htmlFor="username">Username</label>
               <input
                 type="text"
@@ -72,7 +72,7 @@ function SignIn() {
                 onChange={(e) => setFormUsername(e.target.value)}
               />
             </div>
-            <div className="input-wrapper">
+            <div className="sign-in__input-wrapper">
               <label htmlFor="password">Password</label>
               <input
                 type="password"
@@ -81,12 +81,12 @@ function SignIn() {
                 onChange={(e) => setFormPassword(e.target.value)}
               />
             </div>
-            <div className="input-remember">
+            <div className="sign-in__input-remember">
               <input type="checkbox" id="remember-me" />
               <label htmlFor="remember-me">Remember me</label>
             </div>
-            {error && <p>{error}</p>}
-            <button className="sign-in-button" onClick={(e) => submitLogIn(e)}>
+            {error && <p className="sign-in__error">{error}</p>}
+            <button className="sign-in__button" onClick={(e) => submitLogIn(e)}>
               Sign In
             </button>
           </form>

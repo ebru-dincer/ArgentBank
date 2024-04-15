@@ -1,4 +1,5 @@
 import "./App.css";
+import "../sass/main.css";
 import NavBar from "../common/Navbar";
 import Hero from "../components/Hero";
 import Features from "../components/Features";

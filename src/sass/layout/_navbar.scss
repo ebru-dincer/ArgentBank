@@ -1,0 +1,46 @@
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+
+    &__logo {
+        display: flex;
+        align-items: center;
+
+        &--image {    
+            max-width: 100%;
+            width: 200px;
+        }
+    }
+
+    &__container {
+        display: flex;
+        align-items: center;
+
+        &--username {
+            margin-right: 0.5rem;
+        }
+    }
+
+    &__item {
+        text-decoration: none;
+        margin: 0 0.5rem 0 0.2rem;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    & a {
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+    & a.router-link-exact-active {
+        color: #42b983;
+    }
+}
+  
+ 
+  
